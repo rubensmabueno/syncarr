@@ -3,7 +3,7 @@ FROM python:3.11-slim
 ENV APP_HOME /opt/syncarr
 
 RUN apt-get update && \
-    apt-get install -y ffmpeg redis-server && \
+    apt-get install -y ffmpeg redis-server gcc && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p $APP_HOME
 
