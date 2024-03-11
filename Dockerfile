@@ -18,6 +18,8 @@ COPY start.sh start.sh
 
 RUN chmod +x $APP_HOME/start.sh
 
+EXPORT PYTHONPATH=$APP_HOME:$PYTHONPATH
+
 EXPOSE 5000
 
 CMD ["$APP_HOME/start.sh"]
