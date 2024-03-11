@@ -10,6 +10,7 @@ RUN apt-get update && \
 WORKDIR $APP_HOME
 
 COPY . /syncarr
+COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
