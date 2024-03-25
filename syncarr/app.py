@@ -1,7 +1,7 @@
 from flask import Flask
 from celery import Celery, Task
 
-from syncarr.config import CELERY_BROKER_URL
+from syncarr.config import CELERY_BROKER_URL, SCAN_TASK_SCHEDULE_SEC
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ def create_app() -> Flask:
             beat_schedule={
                 "scan-task-every-1-minute": {
                     "task": "syncarr.tasks.scan_task.task",
-                    "schedule": 10,
+                    "schedule": SCAN_TASK_SCHEDULE_SEC,
                 }
             },
             include=['syncarr.tasks.scan_task']
