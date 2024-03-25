@@ -3,6 +3,8 @@
 # Start Redis server
 redis-server --daemonize yes
 
+sleep 30
+
 # Start Celery worker
 celery -A syncarr.worker worker --loglevel=info &
 
