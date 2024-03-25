@@ -9,17 +9,14 @@ RUN apt-get update && \
 
 WORKDIR $APP_HOME
 
-COPY . /syncarr
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY start.sh start.sh
-
-RUN chmod +x $APP_HOME/start.sh
+COPY syncarr syncarr
+COPY standalone.sh standalone.sh
 
 ENV PYTHONPATH=$APP_HOME:$PYTHONPATH
 
 EXPOSE 5000
 
-CMD ["$APP_HOME/start.sh"]
+CMD ["/opt/syncarr/standalone.sh"]

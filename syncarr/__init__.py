@@ -1,1 +1,1 @@
-from syncarr.app import app
+from syncarr.manage import app

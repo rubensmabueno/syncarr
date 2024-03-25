@@ -3,5 +3,38 @@ version: '3'
 services:
   web:
     build: .
+    command: python syncarr/manage.py
+    depends_on:
+      - redis
     ports:
-      - "5000:5000"
+      - 5000:5000
+    environment:
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+
+  redis:
+    image: redis:7.2
+    ports:
+      - 6379:6379
+
+  celery-worker:
+    build: .
+    command: celery -A syncarr.worker worker --loglevel=info
+    depends_on:
+      - redis
+    volumes:
+      - ./resources:/opt/syncarr/resources
+    environment:
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+
+  celery-beat:
+    build: .
+    command: celery -A syncarr.worker beat --loglevel=info
+    depends_on:
+      - redis
+    volumes:
+      - ./resources:/opt/syncarr/resources
+    environment:
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0

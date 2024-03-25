@@ -1,4 +1,4 @@
-flask
-celery
-ffsubsync
-redis
+flask==3.0.2
+celery==5.3.6
+ffsubsync==0.4.25
+redis==5.0.3
